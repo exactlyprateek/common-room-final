@@ -1,158 +1,132 @@
 import React from 'react';
 import {
 	Container,
-	Box,
 	Tabs,
 	TabList,
 	TabPanel,
 	TabPanels,
 	Tab,
-	Image,
-	Text,
 	VStack,
-	WrapItem,
-	Avatar,
 	StackDivider,
-	Link,
-	Badge,
 	Button,
-	HStack,
-	IconButton,
-	Accordion,
-	AccordionItem,
-	AccordionButton,
-	AccordionPanel,
-	AccordionIcon,
-	ButtonGroup,
 	DrawerBody,
 	DrawerOverlay,
 	DrawerContent,
 	Drawer,
 	DrawerHeader,
-	Stack,
 	useDisclosure
 } from '@chakra-ui/react';
 import Header from './Header';
 
-import { AiOutlineHeart } from 'react-icons/ai';
-import { FiMessageCircle, FiShare2 } from 'react-icons/fi';
+import Post from './post';
 
 function Home() {
 	const body = [
 		{
+			avatar: '10',
 			user: 'prakriti',
 			caption: 'lmao xd happy holi dsfsf fs fs fd  sd sdfsd fds fs dsfd fsd fsdfds fsf s d fsd',
-			likes: '56',
-			location: 'MSIT',
+			likes: '34',
+			comments: '18',
+			location: '1',
 			tag: 'environment'
 		},
 		{
+			avatar: '11',
 			user: 'octave',
 			caption: 'lmao xd happy holi',
-			likes: '24',
-			location: 'MSIT',
+			likes: '26',
+			comments: '13',
+			location: '20',
 			tag: 'music'
 		},
 		{
+			avatar: '12',
 			user: 'adventure_club',
 			caption: 'lmao xd happy holi',
-			likes: '56',
-			location: 'MSIT',
+			likes: '84',
+			comments: '34',
+			location: '34',
 			tag: 'travel'
 		},
 		{
+			avatar: '13',
 			user: 'techsoc',
 			caption: 'lmao xd happy holi',
-			likes: '56',
-			location: 'MSIT',
+			likes: '24',
+			comments: '12',
+			location: '48',
 			tag: 'tech'
 		}
 	];
-	const pr = body.map((i, idx) => (
-		<Box
-			my={[ '2', '3', '4', '5' ]}
-			border="1px"
-			borderRadius="sm"
-			borderColor="primary.950"
-			bg="white"
-			className="shadow-custom-anim"
-			width={[ '100%', '90%', '70%', '60%' ]}
-		>
-			<WrapItem alignItems="flex-end" align="center">
-				<Avatar mx="1.5" mb="2" size="sm" name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
-				<Link fontWeight="semibold" ml="1.5" py="3" w="100%" color="black">
-					{i.user}
-				</Link>
-				<Box d="flex" ml="1.5" pb="4" mr="1.5" w="100%" justifyContent="end">
-					<Badge ml="2.5" mr="2" borderRadius="full" px="2" variant="solid" colorScheme="blue">
-						{i.tag}
-					</Badge>
-				</Box>
-			</WrapItem>
+	const body2 = [
+		{
+			avatar: '14',
+			user: 'second',
+			caption: 'find me',
+			likes: '56',
+			comments: '12',
+			location: '55',
+			tag: 'tag1'
+		},
+		{
+			avatar: '15',
+			user: 'well welll wellw khisid',
+			caption: 'lmao xd happy holi',
+			likes: '13',
+			comments: '24',
+			location: '67',
+			tag: 'tah2'
+		},
+		{
+			avatar: '16',
+			user: 'third',
+			caption: 'lmao xd happy holi',
+			likes: '22',
+			comments: '0',
+			location: '73',
+			tag: 'tah2'
+		},
+		{
+			avatar: '17',
+			user: 'fourth',
+			caption: 'lmao xd happy holi',
+			likes: '26',
+			comments: '6',
+			location: '86',
+			tag: 'travel'
+		},
+		{
+			avatar: '18',
+			user: 'techsoc',
+			caption: 'lmao xd happy holi',
+			likes: '16',
+			comments: '10',
+			location: '94',
+			tag: 'tech'
+		}
+	];
 
-			<Image src={`https://via.placeholder.com/1080?text=Location:+${i.location}`} alt="img" />
-			<Box>
-				<HStack mx="2" my="2">
-					<ButtonGroup borderRadius="full" size="lg" isAttached variant="outline">
-						<IconButton borderRadius="full" aria-label="Add to friends" icon={<AiOutlineHeart />} />
-						<Button borderRadius="full" ml="-px">
-							{i.likes}
-						</Button>
-					</ButtonGroup>
-					<ButtonGroup borderRadius="full" size="lg" isAttached variant="outline">
-						<IconButton borderRadius="full" aria-label="Add to friends" icon={<FiMessageCircle />} />
-						<Button borderRadius="full" ml="-px">
-							{i.likes}
-						</Button>
-					</ButtonGroup>
-					<Box w="100%" d="flex" justifyContent="end">
-						<IconButton borderRadius="full" aria-label="Add to friends" icon={<FiShare2 />} />
-					</Box>
-				</HStack>
-			</Box>
-			<Box mx="2" my="2">
-				<Box flex="1" textAlign="left">
-					<Text h="30px" color="black" isTruncated>
-						<Link fontWeight="semibold" ml="1.5" py="3" w="100%" color="black">
-							{i.user}
-						</Link>: {i.caption}
-					</Text>
-				</Box>
-				<Accordion allowToggle>
-					{' '}
-					<AccordionItem>
-						<h2>
-							<AccordionButton isTruncated>
-								<Text>Show Comments</Text>
-								<AccordionIcon />
-							</AccordionButton>
-						</h2>
-						<AccordionPanel pb={4}>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-							labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-							laboris nisi ut aliquip ex ea commodo consequat.
-						</AccordionPanel>
-					</AccordionItem>
-				</Accordion>
-			</Box>
-		</Box>
-	));
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
-		<div className="bg-col" maxH="100vh">
+		<div className="bg-col">
+			<link rel="icon" src="/favicon.ico" />
+
+			<title>Common Room</title>
 			<Header />
-			<Container minChildWidth="120px" maxW="container.lg" p="0">
+			<Container maxW="container.lg" p="0">
 				<Drawer placement="left" onClose={onClose} isOpen={isOpen}>
 					<DrawerOverlay />
 					<DrawerContent>
-						<DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
+						<DrawerHeader borderBottomWidth="1px">Nav</DrawerHeader>
 						<DrawerBody p="0" m="0">
 							<VStack spacing={0}>
 								{[ 'Result', 'Notes', 'Common Room', 'lmao' ].map((i, idx) => (
 									<Button
+										key={idx}
 										rounded="none"
-										bg="white"
+										
 										w="100%"
 										style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
 									>
@@ -163,53 +137,62 @@ function Home() {
 						</DrawerBody>
 					</DrawerContent>
 				</Drawer>
-				
-					{/* <div>
-						<Stack spacing={0}>
-							{[ 'Result', 'Notes', 'Common Room', 'lmao' ].map((i, idx) => (
-								<Button
-									rounded="none"
-									bg="white"
-									w="100%"
-									style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
-								>
-									{i}
-								</Button>
-							))}
-						</Stack>
-					</div> */}
-					<Tabs  variant="enclosed">
-						<TabList mb="0">
-							<Tab>Home</Tab>
-							<Tab>Popular</Tab>
-							<Button onClick={onOpen}>Open Drawer</Button>
-						</TabList>
-						<TabPanels>
-							<TabPanel p="0">
-								<VStack
-									divider={<StackDivider borderColor="gray.100" />}
-									spacing={1}
-									align="center"
-									maxH="83vh"
-									overflow="scroll"
-									style={{ scrollbarWidth: 'none' }}
-								>
-									{pr}
-								</VStack>
-							</TabPanel>
-							<TabPanel p="0">
-              <VStack
-									divider={<StackDivider borderColor="gray.100" />}
-									spacing={1}
-									align="center"
-									maxH="83vh"
-									overflow="scroll"
-									style={{ scrollbarWidth: 'none' }}
-								>
-									{pr}
-								</VStack>
-							</TabPanel>
-							{/* <TabPanel>
+				<Tabs variant="enclosed">
+					<TabList mb="0">
+						<Tab rounded="none">Home</Tab>
+						<Tab rounded="none">Popular</Tab>
+						<Button onClick={onOpen} rounded="none">
+							Open Drawer
+						</Button>
+					</TabList>
+					<TabPanels>
+						<TabPanel p="0">
+							<VStack
+								divider={<StackDivider borderColor="transparent" />}
+								spacing={1}
+								align="center"
+								maxH="83vh"
+								overflow="scroll"
+								style={{ scrollbarWidth: 'none' }}
+							>
+								{body.map((i, idx) => (
+									<Post
+										key={idx}
+										user={i.user}
+										caption={i.caption}
+										likes={i.likes}
+										comments={i.comments}
+										location={i.location}
+										avatar={i.avatar}
+										tag={i.tag}
+									/>
+								))}
+							</VStack>
+						</TabPanel>
+						<TabPanel p="0">
+							<VStack
+								divider={<StackDivider borderColor="transparent" />}
+								spacing={1}
+								align="center"
+								maxH="83vh"
+								overflow="scroll"
+								style={{ scrollbarWidth: 'none' }}
+							>
+								{body2.map((i, idx) => (
+									<Post
+										key={idx}
+										user={i.user}
+										caption={i.caption}
+										comments={i.comments}
+										likes={i.likes}
+										location={i.location}
+										avatar={i.avatar}
+										tag={i.tag}
+									/>
+								))}
+							</VStack>
+						</TabPanel>
+						{/* <TabPanel>
 							<VStack
 								divider={<StackDivider borderColor="gray.100" />}
 								spacing={1}
@@ -262,9 +245,8 @@ function Home() {
 								</Box>
 							</VStack>
 						</TabPanel> */}
-						</TabPanels>
-					</Tabs>
-			
+					</TabPanels>
+				</Tabs>
 			</Container>
 		</div>
 	);

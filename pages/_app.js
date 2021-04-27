@@ -17,7 +17,13 @@ const colors = {
     950: "#c4c4c4"
   },
 }
-const theme = extendTheme({ colors })
+const config = {
+  initialColorMode: "dark",
+  useSystemColorMode: false,
+}
+
+
+const theme = extendTheme({ colors, config })
   return (
     <ChakraProvider theme={theme}>
   

@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link, Box, Flex, Text, Stack, Button } from '@chakra-ui/react';
+import {  Box, Flex, Text, Stack, Button, useColorMode, useColorModeValue } from '@chakra-ui/react';
 
 import Logo from './Logo';
 import Signup from './Singup';
+import { FaSun, FaMoon } from 'react-icons/fa';
+// import { HiMoon } from 'react-icons/hi';
+import { IconContext } from 'react-icons/lib';
 
 const NavBar = (props) => {
 	const [ isOpen, setIsOpen ] = React.useState(false);
@@ -10,7 +13,7 @@ const NavBar = (props) => {
 	const toggle = () => setIsOpen(!isOpen);
 
 	return (
-		<NavBarContainer {...props} bg={[ 'primary.500', 'primary.500', 'primary.100', 'primary.100' ]}>
+		<NavBarContainer {...props} colorScheme="primary">
 			<Logo w="100px" color={[ 'white', 'white', 'primary.500', 'primary.500' ]} />
 			<MenuToggle toggle={toggle} isOpen={isOpen} />
 			<MenuLinks isOpen={isOpen} />
@@ -43,17 +46,23 @@ const MenuToggle = ({ toggle, isOpen }) => {
 	);
 };
 
-const MenuItem = ({ children, isLast, to = '/', ...rest }) => {
+const MenuItem = ({
+	children,
+	isLast,
+	// , to = '/'
+	...rest
+}) => {
 	return (
-		<Link href={to}>
-			<Text display="block" {...rest}>
-				{children}
-			</Text>
-		</Link>
+		// <Link href={to}>
+		<Text display="block" {...rest}>
+			{children}
+		</Text>
+		// </Link>
 	);
 };
 
 const MenuLinks = ({ isOpen }) => {
+	const { colorMode, toggleColorMode } = useColorMode();
 	return (
 		<Box display={{ base: isOpen ? 'block' : 'none', md: 'block' }} flexBasis={{ base: '100%', md: 'auto' }}>
 			<Stack
@@ -63,18 +72,27 @@ const MenuLinks = ({ isOpen }) => {
 				direction={[ 'column', 'row', 'row', 'row' ]}
 				pt={[ 2, 2, 0, 0 ]}
 			>
-				{[ 'Result', 'Notes', 'Common Room', 'lmao' ].map((i, idx) => (
-								<Button
-								minWidth="10rem"
-									rounded="full"
-									bg="white"
-									w="100%"
-									size="sm"
-									style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
-								>
-									{i}
-								</Button>
-							))}
+				{/* {[ 'Result', 'Notes', 'Common Room', 'lmao' ].map((i, idx) => (
+					<Button
+						key={idx}
+						minWidth="10rem"
+						rounded="full"
+						
+						w="100%"
+						size="sm"
+						style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
+					>
+						{i}
+					</Button>
+				))} */}
+				<MenuItem>
+					<Button px="0" onClick={toggleColorMode}>
+						<IconContext.Provider value={{ size:"1.5em" }}>
+							<div>{colorMode === 'light' ? <FaMoon /> : <FaSun />} </div>
+						</IconContext.Provider>
+					</Button>
+				</MenuItem>
+
 				<MenuItem to="#" isLast>
 					<Signup />
 					{/* <Button
@@ -98,6 +116,7 @@ const MenuLinks = ({ isOpen }) => {
 };
 
 const NavBarContainer = ({ children, ...props }) => {
+	const bg = useColorModeValue('primary.500', 'transparent');
 	return (
 		<Flex
 			as="nav"
@@ -107,7 +126,7 @@ const NavBarContainer = ({ children, ...props }) => {
 			w="100%"
 			mb={1}
 			p={4}
-			bg={[ 'primary.500', 'primary.500', 'transparent', 'transparent' ]}
+			bg={bg}
 			color={[ 'white', 'white', 'primary.700', 'primary.700' ]}
 			{...props}
 		>

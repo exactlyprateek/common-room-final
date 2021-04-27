@@ -28,21 +28,22 @@ export default function Signup() {
 				onClick={onOpen}
 				size="sm"
 				rounded="full"
-				color={[ 'primary.500', 'primary.500', 'white', 'white' ]}
-				bg={[ 'white', 'white', 'primary.500', 'primary.500' ]}
-				_hover={{
-					bg: [ 'primary.200', 'primary.200', 'primary.600', 'primary.600' ]
-				}}
-				_active={{
-					bg: [ 'primary.100', 'primary.100', 'primary.800', 'primary.800' ]
-				}}
+				
+				// color={[ 'primary.500', 'primary.500', 'white', 'white' ]}
+				// bg={[ 'white', 'white', 'primary.500', 'primary.500' ]}
+				// _hover={{
+				// 	bg: [ 'primary.200', 'primary.200', 'primary.600', 'primary.600' ]
+				// }}
+				// _active={{
+				// 	bg: [ 'primary.100', 'primary.100', 'primary.800', 'primary.800' ]
+				// }}
 			>
 				Create Account
 			</Button>
 			<Modal size="xl" onClose={onClose} isOpen={isOpen} isCentered>
 				<ModalOverlay />
 				<ModalContent maxH="90vh" overflow="hidden">
-					<ModalCloseButton />
+					<ModalCloseButton rounded="4px" />
 					<ModalBody p="0">
 						<Flex align={'center'} justify={'center'} bg={useColorModeValue('gray.50', 'gray.800')}>
 							<Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
