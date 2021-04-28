@@ -26,7 +26,7 @@ export default function Signup() {
 		<div>
 			<Button
 				onClick={onOpen}
-				size="sm"
+				colorScheme="primary"
 				rounded="full"
 				
 				// color={[ 'primary.500', 'primary.500', 'white', 'white' ]}

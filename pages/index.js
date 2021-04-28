@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Container,
 	Tabs,
@@ -8,106 +8,52 @@ import {
 	Tab,
 	VStack,
 	StackDivider,
-	Button,
-	DrawerBody,
-	DrawerOverlay,
-	DrawerContent,
-	Drawer,
-	DrawerHeader,
-	useDisclosure
+	
+	Center,
+	Skeleton,
 } from '@chakra-ui/react';
 import Header from './Header';
-
 import Post from './post';
+import axios from 'axios';
 
 function Home() {
-	const body = [
-		{
-			avatar: '10',
-			user: 'prakriti',
-			caption: 'lmao xd happy holi dsfsf fs fs fd  sd sdfsd fds fs dsfd fsd fsdfds fsf s d fsd',
-			likes: '34',
-			comments: '18',
-			location: '1',
-			tag: 'environment'
-		},
-		{
-			avatar: '11',
-			user: 'octave',
-			caption: 'lmao xd happy holi',
-			likes: '26',
-			comments: '13',
-			location: '20',
-			tag: 'music'
-		},
-		{
-			avatar: '12',
-			user: 'adventure_club',
-			caption: 'lmao xd happy holi',
-			likes: '84',
-			comments: '34',
-			location: '34',
-			tag: 'travel'
-		},
-		{
-			avatar: '13',
-			user: 'techsoc',
-			caption: 'lmao xd happy holi',
-			likes: '24',
-			comments: '12',
-			location: '48',
-			tag: 'tech'
-		}
-	];
-	const body2 = [
-		{
-			avatar: '14',
-			user: 'second',
-			caption: 'find me',
-			likes: '56',
-			comments: '12',
-			location: '55',
-			tag: 'tag1'
-		},
-		{
-			avatar: '15',
-			user: 'well welll wellw khisid',
-			caption: 'lmao xd happy holi',
-			likes: '13',
-			comments: '24',
-			location: '67',
-			tag: 'tah2'
-		},
-		{
-			avatar: '16',
-			user: 'third',
-			caption: 'lmao xd happy holi',
-			likes: '22',
-			comments: '0',
-			location: '73',
-			tag: 'tah2'
-		},
-		{
-			avatar: '17',
-			user: 'fourth',
-			caption: 'lmao xd happy holi',
-			likes: '26',
-			comments: '6',
-			location: '86',
-			tag: 'travel'
-		},
-		{
-			avatar: '18',
-			user: 'techsoc',
-			caption: 'lmao xd happy holi',
-			likes: '16',
-			comments: '10',
-			location: '94',
-			tag: 'tech'
-		}
-	];
+	const [ home, setHome ] = useState([]);
+	const [ popular, setPopular ] = useState([]);
+	const [ loadingPopular, setLoadingPopular ] = useState(true);
+	const [ loadingHome, setLoadingHome ] = useState(true);
 
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	useEffect(() => {
+		axios
+			.get('/api/home')
+			.then((res) => {
+				setHome(res.data);
+				console.log(res.data);
+				setLoadingHome(false);
+			})
+			.then(() => {
+				console.log('loading:' + loadingHome);
+			})
+			.catch((err) => {
+				console.log(err);
+				setLoadingHome(false);
+			});
+		axios
+			.get('/api/popular')
+			.then((res) => {
+				setPopular(res.data);
+				console.log(res.data);
+				setLoadingPopular(false);
+			})
+			.then(() => {
+				console.log('loading:' + loadingPopular);
+			})
+			.catch((err) => {
+				console.log(err);
+				setLoadingPopular(false);
+			});
+	}, []);
+
+
 
 	return (
 		<div className="bg-col">
@@ -116,81 +62,65 @@ function Home() {
 			<title>Common Room</title>
 			<Header />
 			<Container maxW="container.lg" p="0">
-				<Drawer placement="left" onClose={onClose} isOpen={isOpen}>
-					<DrawerOverlay />
-					<DrawerContent>
-						<DrawerHeader borderBottomWidth="1px">Nav</DrawerHeader>
-						<DrawerBody p="0" m="0">
-							<VStack spacing={0}>
-								{[ 'Result', 'Notes', 'Common Room', 'lmao' ].map((i, idx) => (
-									<Button
-										key={idx}
-										rounded="none"
-										
-										w="100%"
-										style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
-									>
-										{i}
-									</Button>
-								))}
-							</VStack>
-						</DrawerBody>
-					</DrawerContent>
-				</Drawer>
-				<Tabs variant="enclosed">
-					<TabList mb="0">
-						<Tab rounded="none">Home</Tab>
-						<Tab rounded="none">Popular</Tab>
-						<Button onClick={onOpen} rounded="none">
-							Open Drawer
-						</Button>
-					</TabList>
+				<Tabs isFitted variant="soft-rounded" colorScheme="primary">
+					<Center>
+						<TabList mb="1" >
+							<Tab rounded="full" mr="1">Home</Tab>
+							<Tab rounded="full" ml="1">Popular</Tab>
+						</TabList>
+					</Center>
+
 					<TabPanels>
 						<TabPanel p="0">
-							<VStack
-								divider={<StackDivider borderColor="transparent" />}
-								spacing={1}
-								align="center"
-								maxH="83vh"
-								overflow="scroll"
-								style={{ scrollbarWidth: 'none' }}
-							>
-								{body.map((i, idx) => (
-									<Post
-										key={idx}
-										user={i.user}
-										caption={i.caption}
-										likes={i.likes}
-										comments={i.comments}
-										location={i.location}
-										avatar={i.avatar}
-										tag={i.tag}
-									/>
-								))}
-							</VStack>
+							<Skeleton isLoaded={!loadingHome}>
+								{' '}
+								<VStack
+									divider={<StackDivider borderColor="transparent" />}
+									spacing={1}
+									align="center"
+									maxH="83vh"
+									overflow="scroll"
+									style={{ scrollbarWidth: 'none' }}
+								>
+									{home.map((i, idx) => (
+										<Post
+											key={idx}
+											user={i.user}
+											caption={i.caption}
+											likes={i.likes}
+											comments={i.comments}
+											location={i.location}
+											avatar={i.avatar}
+											tag={i.tag}
+										/>
+									))}
+								</VStack>
+							</Skeleton>
 						</TabPanel>
 						<TabPanel p="0">
-							<VStack
-								divider={<StackDivider borderColor="transparent" />}
-								spacing={1}
-								align="center"
-								maxH="83vh"
-								overflow="scroll"
-								style={{ scrollbarWidth: 'none' }}
-							>
-								{body2.map((i, idx) => (
-									<Post
-										key={idx}
-										user={i.user}
-										caption={i.caption}
-										comments={i.comments}
-										likes={i.likes}
-										location={i.location}
-										avatar={i.avatar}
-										tag={i.tag}
-									/>
-								))}
-							</VStack>
+							<Skeleton isLoaded={!loadingPopular}>
+								<VStack
+									divider={<StackDivider borderColor="transparent" />}
+									spacing={1}
+									align="center"
+									maxH="83vh"
+									overflow="scroll"
+									style={{ scrollbarWidth: 'none' }}
+								>
+									{popular.map((i, idx) => (
+										<Post
+											key={idx}
+											user={i.user}
+											caption={i.caption}
+											comments={i.comments}
+											likes={i.likes}
+											location={i.location}
+											avatar={i.avatar}
+											tag={i.tag}
+										/>
+									))}
+								</VStack>
+							</Skeleton>
 						</TabPanel>
 						{/* <TabPanel>
 							<VStack

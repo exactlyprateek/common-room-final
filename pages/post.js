@@ -20,6 +20,7 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FiMessageCircle, FiShare2 } from 'react-icons/fi';
+import { IconContext } from 'react-icons';
 
 function Post(props) {
 	const border = useColorModeValue('primary.950', 'rgba(255, 255, 255, 0.2)');
@@ -43,7 +44,7 @@ function Post(props) {
 					src={`https://picsum.photos/id/${props.avatar}/128`}
 				/>
 
-				<Link href={`/profile/${props.user}`} fontWeight="semibold" ml="1.5" py="3" w="100%" color="grey.900">
+				<Link outline="none" boxShadow="none" border="none" href={`/profile/${props.user}`} fontWeight="semibold" ml="1.5" py="3" w="100%" color="grey.900">
 					{props.user}
 				</Link>
 
@@ -59,27 +60,67 @@ function Post(props) {
 
 			<Box>
 				<HStack mx="2" my="2">
-					<ButtonGroup borderRadius="full" size="lg" isAttached variant="outline">
-						<IconButton borderRadius="full" aria-label="Add to friends" icon={<AiOutlineHeart />} />
+					<ButtonGroup borderRadius="full" size="md" isAttached variant="outline">
+						<IconButton
+							px="1"
+							borderRadius="full"
+							aria-label="Like"
+							icon={
+								<IconContext.Provider value={{ size: '1.5em' }}>
+									<div>
+										<AiOutlineHeart />
+									</div>
+								</IconContext.Provider>
+							}
+						/>
 						<Button borderRadius="full" ml="-px">
 							{props.likes}
 						</Button>
 					</ButtonGroup>
-					<ButtonGroup borderRadius="full" size="lg" isAttached variant="outline">
-						<IconButton borderRadius="full" aria-label="Add to friends" icon={<FiMessageCircle />} />
+					<ButtonGroup borderRadius="full" size="md" isAttached variant="outline">
+						<IconButton
+							pl="2"
+							pr="1"
+							borderRadius="full"
+							aria-label="Add to friends"
+							icon={
+								<IconContext.Provider value={{ size: '1.5em' }}>
+									<div>
+										<FiMessageCircle />
+									</div>
+								</IconContext.Provider>
+							}
+						/>
 						<Button borderRadius="full" ml="-px">
 							{props.comments}
 						</Button>
 					</ButtonGroup>
 					<Box w="100%" d="flex" justifyContent="end">
-						<IconButton borderRadius="full" aria-label="Add to friends" icon={<FiShare2 />} />
+						<IconButton
+							borderRadius="full"
+							aria-label="Add to friends"
+							icon={
+								<IconContext.Provider value={{ size: '1.5em' }}>
+									<div>
+										<FiShare2 />
+									</div>
+								</IconContext.Provider>
+							}
+						/>
 					</Box>
 				</HStack>
 			</Box>
 			<Box mx="2" my="2">
 				<Box flex="1" textAlign="left">
 					<Text h="30px" color="grey.900" isTruncated>
-						<Link href={`/profile/${props.user}`} fontWeight="semibold" ml="1.5" py="3" w="100%" color="grey.900">
+						<Link
+							href={`/profile/${props.user}`}
+							fontWeight="semibold"
+							ml="1.5"
+							py="3"
+							w="100%"
+							color="grey.900"
+						>
 							{props.user}
 						</Link>: {props.caption}
 					</Text>
